@@ -55,5 +55,22 @@ Chloris bridges the gap between high-frequency DeFi and verifiable environmental
     ```bash
     npm run build
     ```
+    
+## 🎨 Customization
 
-## 📂 Project Structure
+### Changing the Theme
+The core theme colors are handled via Tailwind classes:
+* **Primary Green**: `emerald-500`, `emerald-600`
+* **Background**: `#050505` (set in `App.tsx` and `index.css`)
+* **Accents**: `teal-400`, `cyan-500`
+
+### Modifying Content
+All data (Navigation, Features, Roadmap, Tokenomics) is stored in `const` arrays at the top of `src/App.tsx`. You can edit the text directly there without touching the render logic.
+
+## 🤝 Contributing
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
