@@ -14,6 +14,7 @@ import {
   ArrowRight,
   Code
 } from 'lucide-react';
+import * as THREE from 'three';
 
 // --- TypeScript Interfaces ---
 
@@ -239,68 +240,110 @@ const Button = ({ children, variant = 'primary', className = '', ...props }: But
 // --- Main App Component ---
 
 export default function App() {
+  const heroCanvasRef = useRef<HTMLDivElement | null>(null);
+  const requestRef = useRef<number>();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lenisRef = useRef<any>(null);
 
+  // --- THREE.js Hero Effect ---
   useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), 
-      smoothWheel: true,
+    if (!heroCanvasRef.current) return;
+  
+    const width = heroCanvasRef.current.clientWidth;
+    const height = heroCanvasRef.current.clientHeight;
+  
+    
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(width, height);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    heroCanvasRef.current.appendChild(renderer.domElement);
+  
+    
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100);
+    camera.position.z = 5;
+  
+    
+    const material = new THREE.ShaderMaterial({
+      uniforms: { time: { value: 0 } },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform float time;
+        varying vec2 vUv;
+        void main() {
+          float glow = sin((vUv.x + vUv.y) * 10.0 + time * 2.0) * 0.5 + 0.5;
+          gl_FragColor = vec4(vec3(0.0, glow, 0.0), 1.0); // green glow
+        }
+      `,
+      transparent: true,
     });
-    lenisRef.current = lenis;
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
+  
+    
+    const geometry = new THREE.TorusKnotGeometry(1, 0.3, 128, 32);
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+  
+    
+    const light = new THREE.DirectionalLight(0xffffff, 1);
+    light.position.set(5, 5, 5);
+    scene.add(light);
+  
+    const ambient = new THREE.AmbientLight(0xffffff, 0.2);
+    scene.add(ambient);
+  
+   
+    const animate = () => {
+      mesh.rotation.x += 0.01;
+      mesh.rotation.y += 0.015;
+      material.uniforms.time.value += 0.05; 
+      renderer.render(scene, camera);
+      requestRef.current = requestAnimationFrame(animate);
+    };
+    animate();
+  
+    
+    const handleResize = () => {
+      if (!heroCanvasRef.current) return;
+      const newWidth = heroCanvasRef.current.clientWidth;
+      const newHeight = heroCanvasRef.current.clientHeight;
+      camera.aspect = newWidth / newHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(newWidth, newHeight);
+    };
+    window.addEventListener("resize", handleResize);
+  
+    
     return () => {
-      lenis.destroy();
-      lenisRef.current = null;
+      cancelAnimationFrame(requestRef.current!);
+      window.removeEventListener("resize", handleResize);
+      renderer.dispose();
+      scene.clear();
+      heroCanvasRef.current?.removeChild(renderer.domElement);
     };
   }, []);
 
-  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setMobileMenuOpen(false);
-    
-    if (href === '#') return;
-    const target = document.querySelector(href);
-    if (target && lenisRef.current) {
-        lenisRef.current.scrollTo(target, {
-            offset: -100, 
-            duration: 1.5, 
-        });
-    }
-  };
-
-  const scrollToTop = () => {
-    if (lenisRef.current) {
-        lenisRef.current.scrollTo(0, { duration: 1.5 });
-    } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  // --- Lenis Smooth Scroll ---
+  useEffect(()=>{ const lenis=new Lenis({ duration:1.2, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true }); lenisRef.current=lenis;
+    function raf(time:number){ lenis.raf(time); requestAnimationFrame(raf); } requestAnimationFrame(raf);
+    return()=>{ lenis.destroy(); lenisRef.current=null; };
   }, []);
 
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [mobileMenuOpen]);
+  // --- Scroll & Mobile Menu Handlers ---
+  useEffect(()=>{ const handleScroll=()=>setIsScrolled(window.scrollY>50); window.addEventListener('scroll',handleScroll); return()=>window.removeEventListener('scroll',handleScroll); },[]);
+  useEffect(()=>{ document.body.style.overflow = mobileMenuOpen ? 'hidden':'unset'; },[mobileMenuOpen]);
+  const handleNavClick=(e:MouseEvent<HTMLAnchorElement>,href:string)=>{ e.preventDefault(); setMobileMenuOpen(false); const target=document.querySelector(href); if(target&&lenisRef.current){ lenisRef.current.scrollTo(target,{offset:-100,duration:1.5}); }};
+  const scrollToTop=()=>{ if(lenisRef.current){ lenisRef.current.scrollTo(0,{duration:1.5}); }else{ window.scrollTo({top:0,behavior:'smooth'}); } };
 
+  
   return (
-    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-emerald-500/30 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-emerald-500/30 selection:text-white overflow-x-hidden" >
       
       {/* --- MOBILE MENU OVERLAY --- */}
       <div 
@@ -396,8 +439,9 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-40 pb-32 overflow-hidden min-h-screen flex flex-col justify-center">
-        <div className="absolute inset-0 z-0">
+      <section  className="relative pt-40 pb-32 overflow-hidden min-h-screen flex flex-col justify-center">
+      
+        <div  ref={heroCanvasRef} className="absolute inset-0 z-0">
              <div className="absolute inset-0 hero-carbon-bg transform scale-105"></div>
              <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505] z-10"></div>
              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#050505_90%)] z-10"></div>
