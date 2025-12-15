@@ -291,17 +291,18 @@ export default function App() {
     const width = heroCanvasRef.current.clientWidth;
     const height = heroCanvasRef.current.clientHeight;
   
+    
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setSize(width, height);
     renderer.setPixelRatio(window.devicePixelRatio);
     heroCanvasRef.current.appendChild(renderer.domElement);
   
+    
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100);
     camera.position.z = 5;
-    camera.position.y = 0.2; // slightly lift the camera
-    
   
+    
     const material = new THREE.ShaderMaterial({
       uniforms: { time: { value: 0 } },
       vertexShader: `
@@ -322,11 +323,12 @@ export default function App() {
       transparent: true,
     });
   
+    
     const geometry = new THREE.TorusKnotGeometry(1, 0.3, 128, 32);
     const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.y = 0.5; // shift mesh up
     scene.add(mesh);
   
+    
     const light = new THREE.DirectionalLight(0xffffff, 1);
     light.position.set(5, 5, 5);
     scene.add(light);
@@ -334,6 +336,7 @@ export default function App() {
     const ambient = new THREE.AmbientLight(0xffffff, 0.2);
     scene.add(ambient);
   
+   
     const animate = () => {
       mesh.rotation.x += 0.01;
       mesh.rotation.y += 0.015;
@@ -343,6 +346,7 @@ export default function App() {
     };
     animate();
   
+    
     const handleResize = () => {
       if (!heroCanvasRef.current) return;
       const newWidth = heroCanvasRef.current.clientWidth;
@@ -353,6 +357,7 @@ export default function App() {
     };
     window.addEventListener("resize", handleResize);
   
+    
     return () => {
       cancelAnimationFrame(requestRef.current!);
       window.removeEventListener("resize", handleResize);
@@ -361,6 +366,8 @@ export default function App() {
       heroCanvasRef.current?.removeChild(renderer.domElement);
     };
   }, []);
+
+
   
   // --- Scroll & Mobile Menu Handlers ---
   useEffect(()=>{ const handleScroll=()=>setIsScrolled(window.scrollY>50); window.addEventListener('scroll',handleScroll); return()=>window.removeEventListener('scroll',handleScroll); },[]);
