@@ -367,12 +367,7 @@ export default function App() {
     };
   }, []);
 
-  // --- Lenis Smooth Scroll ---
-  useEffect(()=>{ const lenis=new Lenis({ duration:1.2, easing:t=>Math.min(1,1.001-Math.pow(2,-10*t)), smoothWheel:true }); lenisRef.current=lenis;
-    function raf(time:number){ lenis.raf(time); requestAnimationFrame(raf); } requestAnimationFrame(raf);
-    return()=>{ lenis.destroy(); lenisRef.current=null; };
-  }, []);
-
+  
   // --- Scroll & Mobile Menu Handlers ---
   useEffect(()=>{ const handleScroll=()=>setIsScrolled(window.scrollY>50); window.addEventListener('scroll',handleScroll); return()=>window.removeEventListener('scroll',handleScroll); },[]);
   useEffect(()=>{ document.body.style.overflow = mobileMenuOpen ? 'hidden':'unset'; },[mobileMenuOpen]);
