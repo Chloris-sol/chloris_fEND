@@ -15,6 +15,7 @@ import {
   Code
 } from 'lucide-react';
 import * as THREE from 'three';
+import ChromaGrid from './components/ChromaGrid';
 
 // --- TypeScript Interfaces ---
 
@@ -44,6 +45,7 @@ interface TokenAllocation {
   desc: string;
   color: string;
 }
+
 
 // --- Data Constants ---
 
@@ -90,13 +92,13 @@ const ROADMAP: RoadmapItem[] = [
     phase: 'Q4 2025',
     title: 'MVP Launch',
     items: ['Solana Devnet Deployment', 'AI Prototype (Python Agents)', 'Hackathon Demo'],
-    status: 'completed'
+    status: 'current'
   },
   {
     phase: 'Q1 2026',
     title: 'Mainnet Beta',
     items: ['RWA Partnerships (Carbon)', 'AgentiPy Framework Integ.', 'Audit by OtterSec'],
-    status: 'current'
+    status: 'upcoming'
   },
   {
     phase: 'Q2 2026',
@@ -113,6 +115,42 @@ const TOKENOMICS: TokenAllocation[] = [
   { label: 'Offsets', percent: 10, desc: 'Direct Carbon Purchase', color: 'bg-emerald-800' },
   { label: 'Treasury', percent: 10, desc: 'Protocol reserves', color: 'bg-gray-600' },
 ];
+
+const TEAM = [
+  {
+    image: "/aakash.png",
+    title: "Sarah Johnson",
+    subtitle: "Frontend Developer",
+    borderColor: "#065F46", // emerald-800
+    gradient: "linear-gradient(145deg, #10B981, #000)", // emerald-500 → black
+    url: "https://github.com/sarahjohnson"
+  },
+  {
+    image: "https://i.pravatar.cc/300?img=2",
+    title: "Mike Chen",
+    subtitle: "Backend Engineer",
+    borderColor: "#047857", // emerald-700
+    gradient: "linear-gradient(180deg, #34D399, #000)", // emerald-400 → black
+    url: "https://linkedin.com/in/mikechen"
+  },
+  {
+    image: "https://i.pravatar.cc/300?img=1",
+    title: "Sarah Johnson",
+    subtitle: "Frontend Developer",
+    borderColor: "#059669", // emerald-600
+    gradient: "linear-gradient(145deg, #6EE7B7, #000)", // emerald-300 → black
+    url: "https://github.com/sarahjohnson"
+  },
+  {
+    image: "https://i.pravatar.cc/300?img=2",
+    title: "Mike Chen",
+    subtitle: "Backend Engineer",
+    borderColor: "#064E3B", // emerald-900
+    gradient: "linear-gradient(180deg, #10B981, #000)", // emerald-500 → black
+    url: "https://linkedin.com/in/mikechen"
+  }
+];
+
 
 // --- Visual Components ---
 
@@ -241,7 +279,7 @@ const Button = ({ children, variant = 'primary', className = '', ...props }: But
 
 export default function App() {
   const heroCanvasRef = useRef<HTMLDivElement | null>(null);
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number>(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lenisRef = useRef<any>(null);
@@ -356,8 +394,8 @@ export default function App() {
           >
              <div className="flex items-center justify-between mb-12">
                 <div className="flex items-center gap-3 opacity-90">
-                    <Leaf className="text-emerald-500" size={24} />
-                    <span className="font-display font-bold text-lg tracking-tight">CHLORIS</span>
+                    <img src="/chloris-logo.png" alt="" className='h-6'/>
+                    <img src="/chloris-text.png" alt="" className='h-6'/>
                 </div>
                 <button 
                     onClick={() => setMobileMenuOpen(false)}
@@ -391,14 +429,9 @@ export default function App() {
       <nav className={`fixed top-4 md:top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl z-50 rounded-2xl md:rounded-full border border-white/10 bg-[#0A0A0C]/80 backdrop-blur-xl px-4 md:px-6 py-3 transition-all duration-300 ${isScrolled ? 'shadow-[0_10px_30px_-10px_rgba(0,0,0,0.8)] border-emerald-500/20' : 'shadow-none'}`}>
         <div className="flex items-center justify-between relative">
           
-          <div className="flex items-center gap-3 cursor-pointer group z-20" onClick={scrollToTop}>
-            <div className="relative">
-              <div className="w-8 h-8 bg-[#0A0A0C] border border-emerald-500/20 rounded-full flex items-center justify-center relative overflow-hidden group-hover:border-emerald-500/50 transition-colors">
-                  <div className="absolute inset-0 carbon-fiber-bg opacity-30"></div>
-                  <Leaf className="text-emerald-500 relative z-10" size={16} />
-              </div>
-            </div>
-            <span className="font-display font-bold text-lg tracking-tight hidden sm:block">CHLORIS</span>
+          <div className="flex items-center gap-2 cursor-pointer group z-20" onClick={scrollToTop}>
+            <img src="/chloris-logo.png" alt="" className='h-8'/>
+            <img src="/chloris-text.png" alt="" className='h-4'/>
           </div>
           
           <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-8">
@@ -590,7 +623,7 @@ export default function App() {
             </div>
 
             {/* Terminal Visualization */}
-            <div className="relative group">
+            <div className="relative group w-fit justify-self-center md:justify-self-end">
                 <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
                 <div className="relative bg-[#050505] border border-gray-800 rounded-lg shadow-2xl overflow-hidden font-mono text-xs">
                     <div className="bg-[#111] px-4 py-2 flex items-center gap-2 border-b border-gray-800">
@@ -599,7 +632,7 @@ export default function App() {
                         <div className="w-3 h-3 rounded-full bg-emerald-500/20 border border-emerald-500/50"></div>
                         <span className="ml-auto text-gray-600">agent_v1.py</span>
                     </div>
-                    <div className="p-6 space-y-2 text-gray-300 h-[300px] flex flex-col relative">
+                    <div className="p-6 space-y-2 text-gray-300 flex flex-col relative">
                         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/5 to-transparent opacity-20 pointer-events-none animate-scanline"></div>
                         
                         <div className="opacity-50"># Initializing Chloris Yield Agent...</div>
@@ -680,7 +713,6 @@ export default function App() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-lg">
                     {TOKENOMICS.map((token, idx) => (
                         <div key={idx} className="bg-[#0A0A0C] border border-gray-800 p-4 rounded-lg flex items-center gap-4 hover:border-emerald-500/30 transition-colors">
-                            <div className={`w-3 h-full absolute left-0 top-0 bottom-0 rounded-l-lg ${token.color}`}></div>
                             <div className="pl-2">
                                 <div className="flex items-baseline gap-2">
                                     <span className="text-xl font-bold text-white">{token.percent}%</span>
@@ -695,28 +727,97 @@ export default function App() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-black py-12 border-t border-emerald-900/20">
-        <div className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-                <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-emerald-900/50 rounded flex items-center justify-center text-emerald-500">
-                        <Leaf size={16} />
-                    </div>
-                    <span className="font-display font-bold text-white">CHLORIS</span>
-                </div>
-                
-                <div className="text-xs text-gray-600 font-mono">
-                    &copy; 2025 CHLORIS PROTOCOL. DECENTRALIZED ECO-FINANCE.
-                </div>
+      {/* Team */}
+      <section id="team" className="py-24 bg-[#050505] border-t border-white/5 relative">
+        <div className="absolute inset-0 carbon-fiber-bg opacity-10 pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+            <SectionTitle subtitle="Founding Team of Chloris Protocol">HALL OF FAME</SectionTitle>
 
-                <div className="flex gap-4">
-                    <a href="#" className="text-gray-500 hover:text-emerald-500 transition-colors"><Twitter size={20}/></a>
-                    <a href="#" className="text-gray-500 hover:text-emerald-500 transition-colors"><Github size={20}/></a>
-                </div>
+          <div className='flex flex-wrap justify-center gap-10 items-center'>
+            <ChromaGrid 
+              items={TEAM}
+              radius={300}
+              damping={0.45}
+              fadeOut={0.6}
+              ease="power3.out"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="relative z-10 py-12 md:py-16 border-t border-white/10 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12">
+            <div className="col-span-1 md:col-span-2">
+              <div className="flex items-center gap-3 mb-6">
+                 <img src="/chloris-logo.png" alt="" className='h-6'/>
+                  <img src="/chloris-text.png" alt="" className='h-3'/>
+              </div>
+
+              <p className="text-gray-500 text-sm max-w-sm leading-relaxed">
+               Generating compounded returns on Solana while automatically offsetting carbon with AI-driven RWA strategies.
+              </p>
             </div>
+
+            <div>
+              <h4 className="text-white font-bold mb-4 md:mb-6 font-mono text-sm uppercase">
+                Built With
+              </h4>
+              <ul className="space-y-3 md:space-y-4 text-sm text-gray-500">
+                <li className="flex items-center gap-2">
+                  <img
+                    alt="Avalanche Logo"
+                    className="w-5 h-5"
+                    src="/solana-logo.png"
+                  />
+                  Solana
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-white font-bold mb-4 md:mb-6 font-mono text-sm uppercase">
+                Community
+              </h4>
+              <ul className="space-y-3 md:space-y-4 text-sm text-gray-500 mb-4">
+                <li className="hover:text-blue-400 cursor-pointer transition-colors">
+                  <a href="#" className="hover:text-white transition-colors">
+                    Documentation
+                  </a>
+                </li>
+                <li className="hover:text-blue-400 cursor-pointer transition-colors">
+                  <a
+                    href="https://github.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
+                    GitHub
+                  </a>
+                </li>
+                <li className="hover:text-blue-400 cursor-pointer transition-colors">
+                  <a
+                    href="mailto:chloris@gmail.com"
+                    className="hover:text-white transition-colors"
+                  >
+                    chloris@gmail.com
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] md:text-xs text-gray-600 font-mono uppercase tracking-wider text-center md:text-left">
+            <div>© 2025 CHLORIS PROTOCOL. DECENTRALIZED ECO-FINANCE.</div>
+            <div className="flex gap-6 md:gap-8">
+              <span>Privacy Policy</span>
+              <span>Terms of Service</span>
+            </div>
+          </div>
         </div>
       </footer>
+
 
       {/* Global Styles */}
       <style dangerouslySetInnerHTML={{ __html: `
