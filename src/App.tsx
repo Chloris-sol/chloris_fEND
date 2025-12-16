@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import * as THREE from 'three';
 import ChromaGrid from './components/ChromaGrid';
+import ImageMarquee from './components/ImageMarquee';
+import NetworkingCard from './components/NetworkingCard';
 
 // --- TypeScript Interfaces ---
 
@@ -121,35 +123,45 @@ const TEAM = [
     image: "/aakash.png",
     title: "Sarah Johnson",
     subtitle: "Frontend Developer",
-    borderColor: "#065F46", // emerald-800
-    gradient: "linear-gradient(145deg, #10B981, #000)", // emerald-500 → black
+    borderColor: "#14F195", // Primary Solana Green
+    gradient: "linear-gradient(145deg, #14F195, #000)",
     url: "https://github.com/sarahjohnson"
   },
   {
     image: "https://i.pravatar.cc/300?img=2",
     title: "Mike Chen",
     subtitle: "Backend Engineer",
-    borderColor: "#047857", // emerald-700
-    gradient: "linear-gradient(180deg, #34D399, #000)", // emerald-400 → black
+    borderColor: "#9945FF", // Primary Solana Purple
+    gradient: "linear-gradient(145deg, #9945FF, #000)",
     url: "https://linkedin.com/in/mikechen"
   },
   {
     image: "https://i.pravatar.cc/300?img=1",
-    title: "Sarah Johnson",
-    subtitle: "Frontend Developer",
-    borderColor: "#059669", // emerald-600
-    gradient: "linear-gradient(145deg, #6EE7B7, #000)", // emerald-300 → black
-    url: "https://github.com/sarahjohnson"
+    title: "Alex Rivers",
+    subtitle: "UI/UX Designer",
+    borderColor: "#00FFA3", // Solana Spring Green (Turquoise)
+    gradient: "linear-gradient(145deg, #00FFA3, #000)",
+    url: "github.com"
   },
   {
     image: "https://i.pravatar.cc/300?img=2",
-    title: "Mike Chen",
-    subtitle: "Backend Engineer",
-    borderColor: "#064E3B", // emerald-900
-    gradient: "linear-gradient(180deg, #10B981, #000)", // emerald-500 → black
-    url: "https://linkedin.com/in/mikechen"
+    title: "Jordan Lee",
+    subtitle: "Blockchain Architect",
+    borderColor: "#14F195", 
+    // Full Solana Logo Gradient transition
+    gradient: "linear-gradient(135deg, #9945FF 0%, #14F195 100%)",
+    url: "linkedin.com"
   }
 ];
+
+
+
+const Images = [
+  '/Jito.png',
+  '/kamino.png',
+  '/solana.png',
+  '/jupiter.png',
+]
 
 
 // --- Visual Components ---
@@ -538,7 +550,7 @@ export default function App() {
                 </Button>
             </div>
 
-            <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/5 pt-12 max-w-4xl mx-auto bg-gradient-to-b from-white/5 to-transparent rounded-xl p-8 backdrop-blur-sm">
+            {/* <div className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-white/5 pt-12 max-w-4xl mx-auto bg-gradient-to-b from-white/5 to-transparent rounded-xl p-8 backdrop-blur-sm">
                 {[
                     { label: 'Network', val: 'Solana' },
                     { label: 'Offsets', val: 'Verified RWA' },
@@ -550,7 +562,11 @@ export default function App() {
                         <span className="text-xs font-mono text-gray-500 uppercase tracking-wider mt-1">{s.label}</span>
                     </div>
                 ))}
-            </div>
+            </div> */}
+
+          <div className="max-w-8xl mx-auto mt-20">
+            <ImageMarquee images={Images} speed={25} />
+          </div>
         </div>
       </section>
 
@@ -591,7 +607,7 @@ export default function App() {
       <section id="architecture" className="py-32 px-6 bg-[#080808] border-y border-white/5 relative overflow-hidden">
         <div className="absolute inset-0 carbon-fiber-bg opacity-20 pointer-events-none"></div>
         
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
             
             <div className="space-y-12">
                 <div>
@@ -653,7 +669,7 @@ export default function App() {
             </div>
 
             {/* Terminal Visualization */}
-            <div className="relative group w-fit justify-self-center md:justify-self-end">
+            {/* <div className="relative group w-fit justify-self-center md:justify-self-end">
                 <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-lg blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
                 <div className="relative bg-[#050505] border border-gray-800 rounded-lg shadow-2xl overflow-hidden font-mono text-xs">
                     <div className="bg-[#111] px-4 py-2 flex items-center gap-2 border-b border-gray-800">
@@ -686,7 +702,9 @@ export default function App() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
+
+            <NetworkingCard/>
         </div>
       </section>
 
