@@ -10,16 +10,16 @@ export default function ImageMarquee({
   speed = 20,
 }: ImageMarqueeProps) {
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative w-full overflow-x-hidden">
       <div
-        className="flex"
+        className="flex overflow-x-hidden"
         style={{
           width: "max-content",
           animation: `marquee ${speed}s linear infinite`,
         }}
       >
         {/* Repeat images enough times to exceed viewport */}
-        {[...images, ...images, ...images].map((src, i) => (
+        {[...images, ...images].map((src, i) => (
           <img
             key={i}
             src={src}

@@ -436,8 +436,8 @@ export default function App() {
           >
              <div className="flex items-center justify-between mb-12">
                 <div className="flex items-center gap-3 opacity-90">
-                    <img src="/chloris-logo.png" alt="" className='h-6'/>
-                    <img src="/chloris-text.png" alt="" className='h-6'/>
+                    <img src="/chloris-logo.png" alt="" className='h-9'/>
+                    <img src="/chloris-text.png" alt="" className='h-5'/>
                 </div>
                 <button 
                     onClick={() => setMobileMenuOpen(false)}
@@ -545,7 +545,7 @@ export default function App() {
                 <Button className="w-full md:w-auto shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
                     Launch App <ArrowRight size={16} />
                 </Button>
-                <Button variant="outline" className="w-full md:w-auto bg-black/50 backdrop-blur-md">
+                <Button variant="outline" className="w-full md:w-auto bg-black/50 backdrop-blur-md rounded-lg">
                     Read Whitepaper
                 </Button>
             </div>
@@ -564,10 +564,10 @@ export default function App() {
                 ))}
             </div> */}
 
-          <div className="max-w-8xl mx-auto mt-20">
+        </div>
+          <div className="max-w-7xl w-full mx-auto mt-20 overflow-hidden">
             <ImageMarquee images={Images} speed={25} />
           </div>
-        </div>
       </section>
 
       {/* Features Grid */}
