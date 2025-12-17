@@ -571,7 +571,7 @@ export default function App() {
       </section>
 
       {/* Features Grid */}
-      <section id="features" className="relative z-10 py-24 bg-[#050505]">
+      <section id="features" className="relative z-10 py-24 bg-gradient-to-b from-emerald-500/0  to-[#050505]">
         <div className="max-w-7xl mx-auto px-6">
           <SectionTitle subtitle="Chloris bridges the gap between high-frequency DeFi and verifiable environmental impact.">
             PROTOCOL FEATURES
