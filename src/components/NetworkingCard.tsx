@@ -83,7 +83,7 @@ const NetworkingCard: React.FC = () => {
   const DOT_END_Y = 110;
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black p-4">
+    <div className="flex items-center justify-center min-h-screen p-4">
       <div className="relative max-w-3xl w-full rounded-[2.5rem] bg-[#050a0c] border border-gray-800/50 p-10 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(20,241,149,0.15),_transparent_70%)] pointer-events-none" />
 
