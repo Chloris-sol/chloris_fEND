@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, type ReactNode, type MouseEvent, type ButtonHTMLAttributes } from 'react';
-import Lenis from 'lenis';
+//import Lenis from 'lenis';
 import { 
   Leaf, 
   Cpu, 
@@ -291,7 +291,7 @@ const Button = ({ children, variant = 'primary', className = '', ...props }: But
 
 export default function App() {
   const heroCanvasRef = useRef<HTMLDivElement | null>(null);
-  const requestRef = useRef<number>(0);
+  //const requestRef = useRef<number>(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const lenisRef = useRef<any>(null);
@@ -492,11 +492,11 @@ export default function App() {
           <div className="flex items-center gap-4 z-20">
             <div className="hidden md:block">
               {/* LAUNCH APP BUTTON */}
-              <Button 
-                variant="primary" 
-                onClick={() => console.log('Launch App')}
+              <Button
+                variant="primary"
+                onClick={() => window.location.href = 'https://chloris-tan.vercel.app/dashboard'}
               >
-                Launch App <ArrowRight className="w-4 h-4 ml-2" />
+              Launch App <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
 
@@ -542,7 +542,7 @@ export default function App() {
             </p>
 
             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                <Button className="w-full md:w-auto shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+                <Button className="w-full md:w-auto shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]" onClick={() => window.location.href = 'https://chloris-tan.vercel.app/dashboard'}>
                     Launch App <ArrowRight size={16} />
                 </Button>
                 <Button variant="outline" className="w-full md:w-auto bg-black/50 backdrop-blur-md rounded-lg">
