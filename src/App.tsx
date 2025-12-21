@@ -15,7 +15,7 @@ import {
   Code
 } from 'lucide-react';
 import * as THREE from 'three';
-import ChromaGrid from './components/ChromaGrid';
+//import ChromaGrid from './components/ChromaGrid';
 import ImageMarquee from './components/ImageMarquee';
 import NetworkingCard from './components/NetworkingCard';
 
@@ -118,7 +118,7 @@ const TOKENOMICS: TokenAllocation[] = [
   { label: 'Treasury', percent: 10, desc: 'Protocol reserves', color: 'bg-gray-600' },
 ];
 
-const TEAM = [
+{/*const TEAM = [
   {
     image: "/aakash.png",
     title: "Sarah Johnson",
@@ -152,7 +152,7 @@ const TEAM = [
     gradient: "linear-gradient(135deg, #9945FF 0%, #14F195 100%)",
     url: "linkedin.com"
   }
-];
+];*/}
 
 
 

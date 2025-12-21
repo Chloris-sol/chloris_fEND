@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 
 interface Props {
   children: React.ReactNode;
@@ -14,14 +14,12 @@ const LenisProvider: React.FC<Props> = ({ children }) => {
     lenisRef.current = new Lenis({
       duration: 1.5,              
       easing: (t) => t * (2 - t),  
-      smooth: true,
-      direction: 'vertical',
+      orientation: 'vertical',
       wheelMultiplier: 0.8,        
-      smoothTouch: true,           
-      syncTouch: true,            
+      syncTouch: true,                    
       touchMultiplier: 2.0,        
-      gestureOrientation: 'vertical',
-      normalizeWheel: true,        
+      gestureOrientation: 'vertical',  
+      autoRaf: true,    
     });
 
     
