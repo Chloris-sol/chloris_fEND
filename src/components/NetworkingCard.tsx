@@ -83,24 +83,28 @@ const NetworkingCard: React.FC = () => {
   const DOT_END_Y = 110;
 
   return (
-    <div className="flex items-center justify-center min-h-screen p-4">
-      <div className="relative max-w-3xl w-full rounded-[2.5rem] bg-[#050a0c] border border-gray-800/50 p-10 overflow-hidden">
+    <div className="flex items-center justify-center min-h-screen p-4 md:p-8">
+      <div className="relative w-full max-w-3xl rounded-[2.5rem] bg-[#050a0c] border border-gray-800/50 p-6 md:p-10 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(20,241,149,0.15),_transparent_70%)] pointer-events-none" />
 
         <div className="relative z-10 text-center">
-          <h2 className="text-3xl font-bold text-white mb-6">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4 md:mb-6">
             Rearchitect Yield for Impact
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
             A single APY, precisely allocated across user returns, protocol sustainability, and verifiable real-world impact.
           </p>
 
-          {/* Diagram */}
-          <div ref={ref} className="relative w-full max-w-[600px] mx-auto h-[260px] mt-6">
+          {/* Diagram + added bottom margin */}
+          <div
+            ref={ref}
+            className="relative w-full max-w-[600px] mx-auto h-[220px] md:h-[260px] mt-6 mb-6 md:mb-10 aspect-[600/200]"
+          >
             <svg
               viewBox="0 0 600 200"
               className="absolute inset-0 w-full h-full text-gray-500/30"
               fill="none"
+              preserveAspectRatio="xMidYMid meet"
             >
               {/* Main stem */}
               <motion.path
@@ -184,23 +188,23 @@ const NetworkingCard: React.FC = () => {
             </svg>
 
             {/* Top bubble */}
-            <div className="w-full flex justify-center h-fit">
-            <motion.div
-              className="w-fit bg-[#131C1E] border border-gray-700/50 rounded-full px-5 py-2 text-gray-200 flex items-center gap-3"
-              variants={bubble}
-              initial="hidden"
-              animate={animationState}
-              custom={topBubbleDelay}
-            >
-              <TotalApyIcon />
-              Total APY
-            </motion.div> 
+            <div className="w-full flex justify-center h-fit absolute top-0 left-0">
+              <motion.div
+                className="w-fit bg-[#131C1E] border border-gray-700/50 rounded-full px-4 py-1.5 md:px-5 md:py-2 text-gray-200 text-sm md:text-base flex items-center gap-2 md:gap-3"
+                variants={bubble}
+                initial="hidden"
+                animate={animationState}
+                custom={topBubbleDelay}
+              >
+                <TotalApyIcon />
+                Total APY
+              </motion.div>
             </div>
 
             {/* Bottom bubbles */}
-            <div className="absolute top-[175px] left-0 w-full flex justify-around px-4">
+            <div className="absolute top-[175px] md:top-[175px] left-0 w-full flex flex-wrap justify-around px-2 md:px-4 gap-2 md:gap-0">
               <motion.div
-                className="flex items-center gap-2 bg-[#131C1E] border border-gray-700/50 rounded-full px-4 py-2 text-gray-200 text-sm"
+                className="flex items-center gap-2 bg-[#131C1E] border border-gray-700/50 rounded-full px-3 py-1.5 md:px-4 md:py-2 text-gray-200 text-xs md:text-sm"
                 variants={bubble}
                 initial="hidden"
                 animate={animationState}
@@ -211,7 +215,7 @@ const NetworkingCard: React.FC = () => {
               </motion.div>
 
               <motion.div
-                className="flex items-center gap-2 bg-[#131C1E] border border-gray-700/50 rounded-full px-4 py-2 text-gray-200 text-sm"
+                className="flex items-center gap-2 bg-[#131C1E] border border-gray-700/50 rounded-full px-3 py-1.5 md:px-4 md:py-2 text-gray-200 text-xs md:text-sm"
                 variants={bubble}
                 initial="hidden"
                 animate={animationState}
@@ -222,7 +226,7 @@ const NetworkingCard: React.FC = () => {
               </motion.div>
 
               <motion.div
-                className="flex items-center gap-2 bg-[#131C1E] border border-gray-700/50 rounded-full px-4 py-2 text-gray-200 text-sm"
+                className="flex items-center gap-2 bg-[#131C1E] border border-gray-700/50 rounded-full px-3 py-1.5 md:px-4 md:py-2 text-gray-200 text-xs md:text-sm"
                 variants={bubble}
                 initial="hidden"
                 animate={animationState}

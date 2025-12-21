@@ -604,21 +604,23 @@ export default function App() {
       </section>
 
       {/* Architecture / Terminal Section - WITH SYNAPTIC LINE */}
-      <section id="architecture" className="py-32 px-6 bg-[#080808] border-y border-white/5 relative overflow-hidden">
+      <section id="architecture" className="relative overflow-hidden bg-[#080808] border-y border-white/5 py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-6">
         <div className="absolute inset-0 carbon-fiber-bg opacity-20 pointer-events-none"></div>
         
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative z-10">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start relative z-10">
             
             <div className="space-y-12">
                 <div>
-                    <h2 className="text-4xl md:text-5xl font-black text-white mb-6 font-display uppercase">Net-Zero <br/><span className="text-emerald-500">Architecture</span></h2>
+                    <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-6 font-display uppercase">Net-Zero <br/><span className="text-emerald-500">Architecture</span></h2>
                     <p className="text-gray-400 text-lg font-light leading-relaxed">
                         Chloris utilizes Python-based AI agents (AgentiPy) to bridge off-chain intelligence with on-chain execution.
                     </p>
                 </div>
 
                 {/* THE VERTICAL SYNAPSE LINE */}
-                <div className="relative pl-6 md:pl-0">
+                Why is the dot animation not at the middle of the image on mobile 
+
+<div className="relative pl-6 md:pl-0">
                     {/* The animated line background */}
                     <div 
                       className="absolute left-[23px] lg:left-6 top-4 bottom-12 w-[2px] -translate-x-1/2 z-0 overflow-visible"
@@ -647,7 +649,7 @@ export default function App() {
                     </div>
 
                     {/* The Items */}
-                    <div className="space-y-8">
+                    <div className="space-y-6 sm:space-y-8">
                       {[
                           { title: 'User Deposit', desc: 'SOL, USDC, or LSTs (Sanctum/Jito) deposited into Vault.', icon: <Wallet size={18}/> },
                           { title: 'AI Optimization', desc: 'Off-chain Python models predict yield volatility & select best RWA offsets.', icon: <Code size={18}/> },
@@ -660,7 +662,7 @@ export default function App() {
                               </div>
                               <div className="pt-1">
                                   <h3 className="text-lg font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">{step.title}</h3>
-                                  <p className="text-sm text-gray-500">{step.desc}</p>
+                                  <p className="text-sm sm:text-base text-gray-500">{step.desc}</p>
                               </div>
                           </div>
                       ))}
@@ -776,7 +778,7 @@ export default function App() {
       </section>
 
       {/* Team */}
-      <section id="team" className="py-24 bg-[#050505] border-t border-white/5 relative">
+      {/*<section id="team" className="py-24 bg-[#050505] border-t border-white/5 relative">
         <div className="absolute inset-0 carbon-fiber-bg opacity-10 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-6 relative z-10">
             <SectionTitle subtitle="Founding Team of Chloris Protocol">HALL OF FAME</SectionTitle>
@@ -791,7 +793,7 @@ export default function App() {
             />
           </div>
         </div>
-      </section>
+      </section>*/}
 
       {/* Footer */}
       <footer className="relative z-10 py-12 md:py-16 border-t border-white/10 bg-black">
