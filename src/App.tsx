@@ -838,7 +838,7 @@ export default function App() {
                 </li>
                 <li className="hover:text-blue-400 cursor-pointer transition-colors">
                   <a
-                    href="https://github.com/"
+                    href="https://github.com/Chloris-sol"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-white transition-colors"
@@ -848,10 +848,10 @@ export default function App() {
                 </li>
                 <li className="hover:text-blue-400 cursor-pointer transition-colors">
                   <a
-                    href="mailto:chloris@gmail.com"
+                    href="mailto:chlorissolana@gmail.com"
                     className="hover:text-white transition-colors"
                   >
-                    chloris@gmail.com
+                    chlorissolana@gmail.com
                   </a>
                 </li>
               </ul>
